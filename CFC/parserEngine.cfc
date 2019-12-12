@@ -35,11 +35,7 @@ component output="false" displayname="Parse Suunto Ambit File"  {
 
 	}
 
-	public function getSampleForTrkpt(required trkpt){
-
-	}
-
-	public function createGPX(filename){
+	public function createGPX(required filename){
 
 		//This will create a blank GPX XML Object with not trackpoints
 
@@ -85,7 +81,7 @@ component output="false" displayname="Parse Suunto Ambit File"  {
 
 		arrayAppend(GPXFile['gpx']['trk'].XmlChildren, xmlName);
 
-		GPXFile['gpx']['trk']['name'].XmlText = 'Test File';
+		GPXFile['gpx']['trk']['name'].XmlText = listFirst(arguments.fileName, ".");
 
 		//Add the segment to the file	
 		xmlSeg = xmlElemNew(GPXFile, 'http://www.topografix.com/GPX/1/1' , 'trkseg');
@@ -124,12 +120,15 @@ component output="false" displayname="Parse Suunto Ambit File"  {
 		return GPXFile;
 	}
 
+	//For future implementation
 	public function findSampleForTrkpt(required GPXFile, required ambitJson){
 
 		//GPXFile['gpx']['trk']['trkseg']['trkpt'][i].XmlChildren.append('ele');
 
 	}
 
+	//Old XML stuff from here on down. Not in use anymore.
+	//Delete this later
 	public function getHeaderInfo(ambitFile){
 
 		headerNode.XML = XmlSearch(arguments.ambitFile, "//*[local-name()='Header' and namespace-uri()='http://www.suunto.com/schemas/sml']");
@@ -178,11 +177,6 @@ component output="false" displayname="Parse Suunto Ambit File"  {
 	public function getSamplesData(ambitFile){
 
 		samplesNode.XML = XmlSearch(arguments.ambitFile, "//*[local-name()='Sample' and namespace-uri()='http://www.suunto.com/schemas/sml']");
-
-
-		dump(samplesNode.XML[1]);
-
-
 
 	}
 
@@ -256,10 +250,5 @@ component output="false" displayname="Parse Suunto Ambit File"  {
 		return AmbitNodes;
 
 	}
-
-
-
-
-
 
 }

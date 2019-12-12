@@ -4,6 +4,8 @@ setting requestTimeOut=300;
 
 fileName = 'log-2019-11-10T09_55_04.json';
 
+newFilename = listFirst(fileName, ".");
+
 suuntoAPI = createObject("component", "CFC/parserEngine");
 
 xmlAPI = createObject("component", "CFC/XMLEngine");
@@ -21,11 +23,9 @@ arrayIndex = ArrayFind(ambitJson.Samples, function(struct){
 });
 */
 
-GPXFile = suuntoAPI.createGPX();
+GPXFile = suuntoAPI.createGPX(newFilename);
 
 GPXFile = suuntoAPI.addTrkpt(GPXFile, ambitJson);
-
-newFilename = listFirst(fileName, ".");
 
 fileWrite(expandPath("./"&newFilename&".gpx"), xmlAPI.indentXML(GPXFile, '  '));
 
