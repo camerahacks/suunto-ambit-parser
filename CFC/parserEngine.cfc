@@ -37,8 +37,7 @@ component output="false" displayname="Parse Suunto Ambit File"  {
 
 	public function createGPX(required filename){
 
-		//This will create a blank GPX XML Object with not trackpoints
-
+		//Create a blank GPX XML Object with no trackpoints
 		GPXFile = xmlNew('True');
 
 		//Add gpx root element under the correct URI
@@ -56,19 +55,15 @@ component output="false" displayname="Parse Suunto Ambit File"  {
 		structInsert(GPXFile.XmlRoot.XmlAttributes, 'xmlns', 'http://www.topografix.com/GPX/1/1');
 
 		//Add xmlns:gpxdata
-
 		structInsert(GPXFile.XmlRoot.XmlAttributes, 'xmlns:gpxdata', 'http://www.cluetrust.com/XML/GPXDATA/1/0');		
 
 		//Add xmlns:gpxtpx
-
 		structInsert(GPXFile.XmlRoot.XmlAttributes, 'xmlns:gpxtpx', 'http://www.garmin.com/xmlschemas/TrackPointExtension/v1');
 
 		//Add xmlns:xsi
-
 		structInsert(GPXFile.XmlRoot.XmlAttributes, 'xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance');
 
 		//Add xsi:schemaLocation
-
 		structInsert(GPXFile.XmlRoot.XmlAttributes, 'xsi:schemaLocation', 'http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.cluetrust.com/XML/GPXDATA/1/0 http://www.cluetrust.com/Schemas/gpxdata10.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd');
 
 		//Add the track element
@@ -95,8 +90,7 @@ component output="false" displayname="Parse Suunto Ambit File"  {
 
 	public function addTrkpt(required GPXFile, required ambitJson){
 
-		//Add trackpoints to the segment - have to do a loop here to add as many points as needed
-
+		//Add trackpoints to the segment
 		trackpoints = arguments.ambitJson.TrackPoints;
 
 		for(i=1; i <= arrayLen(trackpoints); i++){
